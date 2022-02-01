@@ -5,8 +5,16 @@ class Store{
   #adress;
   #phone;
   #coords;
+  #products= new Map();
 
   constructor(CIF, name, adress, phone, coords){
+
+    if (CIF=="") throw new InvalidValue("CIF", CIF);
+    if (name=="") throw new InvalidValue("name", name);
+    if (adress=="") throw new InvalidValue("adress", adress);
+    if (phone=="") throw new InvalidValue("phone", phone);
+    if (!coords instanceof Coords) throw new InvalidValue("coords", coords);
+
     this.#CIF= CIF;
     this.#name= name;
     this.#adress= adress;
@@ -21,6 +29,7 @@ class Store{
   }
 
   set CIF(longuitude) {
+    if (CIF="") throw new InvalidValue("CIF", CIF);
     this.#CIF = CIF;
   }
   // gets and sets for name
@@ -29,6 +38,7 @@ class Store{
   }
 
   set name(name) {
+    if (name="") throw new InvalidValue("name", name);
     this.#name = name;
   }
   // gets and sets for adress
@@ -37,10 +47,12 @@ class Store{
   }
 
   set adress(adress) {
+    if (adress="") throw new InvalidValue("adress", adress);
     this.#adress = adress;
   }
   // gets and sets for phone
   get phone() {
+    if (phone="") throw new InvalidValue("phone", phone);
     return this.#phone;
   }
 
@@ -53,7 +65,11 @@ class Store{
   }
 
   set coords(coords) {
+    if (!coords instanceof Coords) throw new InvalidValue("coords", coords);
     this.#coords = coords;
+  }
+  get products(){
+    return this.#products;
   }
 
 }

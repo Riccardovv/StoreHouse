@@ -7,12 +7,19 @@ class Product {
   #image;
 
   constructor(serial, name, description, price, tax, image) {
+
+    if(serial=="") throw new InvalidValue("serial", "empty")
+    if(name=="") throw new InvalidValue("name", "empty")
+    if(description=="") throw new InvalidValue("description", "empty")
+    if(isNaN(price)) throw new InvalidValue("price", price)
+    if(isNaN(tax)) throw new InvalidValue("tax", tax)
+
     this.#serial = serial;
     this.#name = name;
     this.#description = description;
     this.#price = price;
     this.#tax = tax;
-    this.#image = image;
+    this.#image = "/img"+image;
   }
 
   // gets and sets for serial
@@ -22,6 +29,7 @@ class Product {
   }
 
   set serial(serial) {
+    if(serial=="") throw new InvalidValue("serial", "empty")
     this.#serial = serial;
   }
 
@@ -32,6 +40,7 @@ class Product {
   }
 
   set name(name) {
+    if(name=="") throw new InvalidValue("name", "empty")
     this.#name = name;
   }
 
@@ -42,6 +51,7 @@ class Product {
   }
 
   set description(description) {
+    if(description=="") throw new InvalidValue("description", "empty")
     this.#description = description;
   }
 
@@ -52,6 +62,7 @@ class Product {
   }
 
   set price(price) {
+    if(isNaN(price)) throw new InvalidValue("price", price)
     this.#price = price;
   }
 
@@ -62,16 +73,7 @@ class Product {
   }
 
   set tax(tax) {
-    this.#tax = tax;
-  }
-
-  // gets and sets for tax
-
-  get tax() {
-    return this.#tax;
-  }
-
-  set tax(tax) {
+    if(isNaN(tax)) throw new InvalidValue("tax", tax)
     this.#tax = tax;
   }
 
@@ -84,6 +86,7 @@ class Product {
   set image(image) {
     this.#image = image;
   }
+
 }
 
 class Tv extends Product {
@@ -106,6 +109,7 @@ class Tv extends Product {
   }
 
   set size(size) {
+    if(isNaN(size)) throw new InvalidValue("size", size)
     this.#size = size;
   }
 
@@ -116,6 +120,7 @@ class Tv extends Product {
   }
 
   set refreshRate(refreshRate) {
+    if(isNaN(refreshRate)) throw new InvalidValue("refreshRate", refreshRate)
     this.#refreshRate = refreshRate;
   }
 
@@ -126,6 +131,7 @@ class Tv extends Product {
   }
 
   set resolution(resolution) {
+    if(resolution="") throw new InvalidValue("resolution", "empty")
     this.#resolution = resolution;
   }
 }
@@ -152,6 +158,8 @@ class Car extends Product{
   }
 
   set brand(brand) {
+    if(brand="") throw new InvalidValue("brand", brand)
+
     this.#brand = brand;
   }
 
@@ -162,12 +170,15 @@ class Car extends Product{
   }
 
   set displacement(displacement) {
+    if(isNaN(displacement)) throw new InvalidValue("displacement", displacement)
+
     this.#displacement = displacement;
   }
 
   // gets and sets for license
 
   get license() {
+    if(license="") throw new InvalidValue("license", "empty")
     return this.#license;
   }
 
@@ -190,6 +201,10 @@ class Movie extends Product{
 
     super(serial, name, description, price, tax, image);
 
+    if(title="") throw new InvalidValue("title", title)
+    if(director="") throw new InvalidValue("director", director)
+    if(isNaN(length)) throw new InvalidValue("director", director)
+
     this.#title = title;
     this.#director = director;
     this.#length = length;
@@ -202,6 +217,7 @@ class Movie extends Product{
   }
 
   set title(title) {
+    if(title="") throw new InvalidValue("title", title)
     this.#title = title;
   }
 
@@ -212,6 +228,7 @@ class Movie extends Product{
   }
 
   set director(director) {
+    if(director="") throw new InvalidValue("director", director)
     this.#director = director;
   }
 
@@ -222,6 +239,7 @@ class Movie extends Product{
   }
 
   set length(length) {
+    if(isNaN(length)) throw new InvalidValue("director", director)
     this.#length = length;
   }
 

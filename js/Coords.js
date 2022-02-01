@@ -2,7 +2,11 @@ class Coords {
   #latitude;
   #longuitude;
 
+
   constructor(latitude, longuitude) {
+    if(isNaN(latitude)) throw new InvalidValue("Latitude", latitude)
+    if(isNaN(longuitude)) throw new InvalidValue("longuitude", longuitude)
+
     this.#latitude = latitude;
     this.#longuitude = longuitude;
   }
@@ -12,6 +16,7 @@ class Coords {
   }
 
   set longuitude(longuitude) {
+    if(isNaN(longuitude)) throw new InvalidValue("longuitude", longuitude)
     this.#longuitude = longuitude;
   }
 
@@ -21,6 +26,8 @@ class Coords {
   }
 
   set latitude(latitude) {
+    if(isNaN(latitude)) throw new InvalidValue("Latitude", latitude)
     this.#latitude = latitude;
   }
+
 }
