@@ -5,6 +5,7 @@ class Store{
   #adress;
   #phone;
   #coords;
+  // key es el producto y value el stock
   #products= new Map();
 
   constructor(CIF, name, adress, phone, coords){

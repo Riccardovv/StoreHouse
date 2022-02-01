@@ -33,8 +33,4 @@ class Category{
     this.#description = description;
   }
 
-
-
-
-
 }

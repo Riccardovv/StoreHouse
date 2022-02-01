@@ -32,13 +32,12 @@ class StoreHouse {
     this.#stores.push(this.#defaultShop);
 
   }
-
+  //añade un producto en tantas categorias como reciba
   addProduct(product, ...categories){
     if(! product instanceof Product) throw new InvalidValue("product", product)
     if(this.#products.has(product)) throw new ProductAlreadyAdded(product);
     this.#products.set(product,0)
     for (const cat of categories) {
-      console.log("pasa");
       if (this.#categories.has(cat)) {
         this.#categories.get(cat).push(product);
       }
@@ -50,21 +49,22 @@ class StoreHouse {
     return this.#products.size;
   }
 
+  //añade una tienda al storehouse
   addShop(shop){
-    if(! shop instanceof shop) throw new InvalidValue("shop", shop);
-    if (this.#stores.includes(shop)) 
-    this.#stores.set(shop,{});
+    if(! shop instanceof Store) throw new InvalidValue("shop", shop);
+    if (this.#stores.includes(shop)) throw new StoreAlreadyAdded(shop);
+    this.#stores.push(shop);
     return this.#stores.size;
   }
-
+  //devuelve un iterador de todas las categorias
   get categories(){
-    return this.#categories.values();
+    return this.#categories.keys();
   }
-
+  //devuelve un iterador de todas las tiendas
   get shops(){
     return this.#stores.values();
   }
-
+  //añade una categoria al mapa de categorias
   addCategory(category){
     if(!category instanceof Category) throw new InvalidValue("category", category)
     if(this.#categories.has(category)) throw CategoryAlreadyExist(category)
@@ -72,7 +72,7 @@ class StoreHouse {
     return this.#categories.length;
   }
 
-
+//añade un producto a una tienda con su cantidad
   addProductInShop(product, shop, cuantity,){
     if(! product instanceof Product) throw new InvalidValue("product", product)
     if(shop.products.has(product)) throw new ProductAlreadyAdded(product);
@@ -93,7 +93,7 @@ class StoreHouse {
   }
 
 
-
+//elimina una categoria y añade los productos a la categhoria generica
   removeCategory(category){
     if (!this.#categories.has(category)) throw new CategoryDoesntExist(category);
     this.#categories.get(this.#defaultCategory).push(this.#categories.get(category))
@@ -101,32 +101,40 @@ class StoreHouse {
   }
 
 
-
+//elimina el producto de todas las tiendas y de la hs
   removeProduct(product){
     if (!this.#products.has(product)) throw new ProductDoesntExist(product);
+    this.#stores.forEach(function (value) {
+      value.products.delete(product);
+    })
     this.#products.delete(product);
   }
 
+  //elimina una tienda y añade sus productos a la tienda generica
   removeStore(shop){
-    if (!this.#stores.includes) throw new StoreDoesntExist(shop);
-    this.#products.delete(product);
+    if (!this.#stores.includes(shop)) throw new StoreDoesntExist(shop);
+    this.#stores.splice(this.#stores.indexOf(shop),1);
   }
-
+  //aumenta el stock de un producto en una tienda
   addQuantityProductInShop(product, shop, quantity=1){
     if(!shop.products.has(product)) throw new ProductDoesntExist(product)
     shop.products.set(product,( shop.products.get(product)+quantity))
   }
 
-
+//devuelve todos los productos de una categoria
   getCategoryProducts(category, product){
     if (! this.#categories.has(category)) throw CategoryDoesntExist(category);
-    let tmp=this.#categories.get(category);
-    return tmp.values();
+    if (product==undefined) {
+      let tmp=this.#categories.get(category);
+      return tmp.values();
+    }else{
 
+
+    }
   }
-
+//devuelve un iterador con los productos de una tienda dada
   getShopProducts(shop){
-    return shop.products.values();
+    return shop.products.keys();
   }
 
   

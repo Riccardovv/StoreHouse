@@ -74,3 +74,13 @@ function StoreDoesntExist(store) {
 }
 StoreDoesntExist.prototype=Object.create(Error.prototype);
 StoreDoesntExist.prototype.constructor=StoreDoesntExist;
+
+
+
+function StoreAlreadyAdded(store) {
+  let instance= Error.call(this,"The store "+store+" is already added");
+
+  return instance;
+}
+StoreAlreadyAdded.prototype=Object.create(Error.prototype);
+StoreAlreadyAdded.prototype.constructor=StoreAlreadyAdded;
